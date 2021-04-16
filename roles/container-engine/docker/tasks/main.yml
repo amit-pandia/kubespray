@@ -82,6 +82,13 @@
     dest: "{{ yum_repo_dir }}/docker.repo"
   when: ansible_distribution == "Fedora" and not is_ostree
 
+- name: Remove docker repository first forcing to be updated
+  file:
+    path: "{{ yum_repo_dir }}/docker.repo"
+    state: absent
+  when: ansible_distribution in ["CentOS","RedHat"] and not is_atomic
+  ignore_errors: true
+
 - name: Configure docker repository on RedHat/CentOS/Oracle Linux
   template:
     src: "rh_docker.repo.j2"

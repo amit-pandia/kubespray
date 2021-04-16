@@ -50,6 +50,7 @@
     name: kubelet
     enabled: yes
     state: started
+    daemon_reload: true
   tags:
     - kubelet
   notify: Kubelet | restart kubelet
